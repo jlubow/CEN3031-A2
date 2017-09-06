@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <title>UF Directory</title>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body ng-app="directoryApp">
+    <div class="container">
+      <div class="row">
+        <h1>UF Directory App</h1>
+      </div>
+      <div class="row" ng-controller="ListingsController">
+        <div class="col-md-6">
+          <div class="input-group" id="searchBar">
+            <!-- 
+
+                Implement a way to filter through listings using the search bar 
+
+              -->
+            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
+            <input type="text" class="form-control" placeholder="Search" ng-model="searchEntry" ng-change="showListings()">
+          </div>
+
+
+          <div class="form-group row-md-6">
+            <table class="table table-hover">
+              <tr>
+                <th>Code</th>
+                <th>Building Name</th>
+                <th></th>
+              </tr>
+             
+              <tr ng-repeat="name in names track by $index" ng-click="showDetails(name.index)">
+                <td ng-bind="name.code"></td>
+                <td ng-bind="name.name"></td>
+                <td><button type="button" class="form-control btn btn-danger"
+                  ng-click="removeListing(name.index)">Remove</button>
+              </tr>
+            </table>
+          </div>
+
+          <br>
+
+          <div class="form-group row-md-6">
+              <button type="button" class="form-control" 
+              ng-click="addListing()">Add Listing</button>
+          </div>
+          <div class="form-group row-md-6">
+            <div id="addCode" hidden>Code: 
+              <input type="text" ng-model="addCode"/>
+            </div>
+            <br>
+            <div id="addName" hidden>Name: 
+              <input type="text" ng-model="addName" />
+            </div>
+            <br>
+            <div id="addLat" hidden>Latitude: 
+              <input type="text" ng-model="addLat"/>
+            </div>
+            <br>
+            <div id="addLon" hidden>Longitude: 
+              <input type="text" ng-model="addLon"/>
+            </div>
+            <br>
+            <div id="addAddress" hidden>Address: 
+              <input type="text" ng-model="addAddress"/>
+            </div>
+            <br>
+            <button type="button" class="form-control" 
+              id="addButton" ng-click="storeListing()" style="display:none";>+ Add</button>
+          </div>
+
+
+
+        </div>
+
+        <div class="col-md-6">
+          <div class="jumbotron">
+            <div class="form-group row-md-6">
+              <h2>Detailed Information</h2>
+            </div>
+            <div class="form-group row-md-6">
+              <p>Code: <span ng-bind="detailedInfo.code"></span></p>
+              <p>Name: <span ng-bind="detailedInfo.name"></span></p>
+              <p>Latitude: <span ng-bind="detailedInfo.coordinates.latitude"></span></p>
+              <p>Longitude: <span ng-bind="detailedInfo.coordinates.longitude"></span></p>
+              <p>Address: <span ng-bind="detailedInfo.address"></span></p>
+
+              </p>  
+             </div>
+          </div>
+          <div class="form-group row-md-6">
+            <div id="googleMap" style="width:100%;height:300px;">
+          </div>
+        </div>
+
+        
+
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="listingController.js"></script>
+    <script src="listingFactory.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOVUO8kG8pr6rf7kf6POIVVMJIwSOSp3A&callback"></script>
+  </body>
+</html>
